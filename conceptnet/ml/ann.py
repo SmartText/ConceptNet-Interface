@@ -6,3 +6,15 @@ def train(classes, y_samples, feature_dict, classes_dict):
     clf.fit(y_samples, classes)
 
     return clf
+
+def test(classes, y_samples, clf):
+    correct = 0
+    incorrect = 0
+
+    for class_int,y_sample in zip(classes, y_samples):
+        pred = clf.predict([y_sample])
+        if pred[0] == class_int:
+            correct += 1
+        else:
+            incorrect += 1
+    print(correct*100/(correct+incorrect))
