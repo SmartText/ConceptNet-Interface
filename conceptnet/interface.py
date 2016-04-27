@@ -39,3 +39,15 @@ if __name__ == "__main__":
     elif mode == "pos":
         from parser import pos_commonsense5
         pos_commonsense5.parse_files(conf)
+    elif mode == "train":
+        from parser import samples_commonsense5
+        # Get training samples
+        samples = samples_commonsense5.get_samples(conf, 1000)
+
+        # A feature dictionary to keep the variables contant
+        feature_dict = {}
+        classes_dict = {}
+
+        from ml import feature, ann
+        features,classes = feature.get_features(conf, samples, feature_dict, classes_dict)
+        ann.train(classes, features, feature_dict, classes_dict)
